@@ -8,69 +8,81 @@
 </head>
 <body>
     <div class="container">
-        <h1>Inventory Management</h1>
-
-        <div class="section">
-            <h2>Add Product</h2>
-            <form method="POST" action="/add_product">
-                <input type="text" name="product_name" placeholder="Product Name" required>
-                <input type="text" name="category" placeholder="Category" required>
-                <input type="number" name="quantity" placeholder="Quantity" required>
-                <input type="number" name="price" placeholder="Price" required>
-                <input type="text" name="supplier_name" placeholder="Supplier Name" required>
-                <input type="text" name="contact_details" placeholder="Contact Details" required>
-                <button type="submit">Add Product</button>
-            </form>
-        </div>
-
-        <div class="section">
-            <h2>Products</h2>
+        <div class="sidebar">
+            <h2>Menu</h2>
             <ul>
-                {% for product in products %}
-                <li>
-                    {{ product[1] }} ({{ product[2] }}) - Quantity: {{ product[3] }} - Price: {{ product[4] }}
-                    <a href="{{ url_for('remove_product_route', product_id=product[0]) }}">Remove</a>
-                </li>
-                {% endfor %}
+                <li><a href="#add-product">Add Product</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#record-sale">Record Sale</a></li>
+                <li><a href="#sales-records">Sales Records</a></li>
+                <li><a href="#suppliers">Suppliers</a></li>
             </ul>
         </div>
+        <div class="main-content">
+            <h1>Inventory Management</h1>
 
-        <div class="section">
-            <h2>Record Sale</h2>
-            <form method="POST" action="/record_sale">
-                <input list="product_names" name="product_name" placeholder="Product Name" required>
-                <datalist id="product_names">
+            <div id="add-product" class="section">
+                <h2>Add Product</h2>
+                <form method="POST" action="/add_product">
+                    <input type="text" name="product_name" placeholder="Product Name" required>
+                    <input type="text" name="category" placeholder="Category" required>
+                    <input type="number" name="quantity" placeholder="Quantity" required>
+                    <input type="number" name="price" placeholder="Price" required>
+                    <input type="text" name="supplier_name" placeholder="Supplier Name" required>
+                    <input type="text" name="contact_details" placeholder="Contact Details" required>
+                    <button type="submit">Add Product</button>
+                </form>
+            </div>
+
+            <div id="products" class="section">
+                <h2>Products</h2>
+                <ul>
                     {% for product in products %}
-                    <option value="{{ product[1] }}">
+                    <li>
+                        {{ product[1] }} ({{ product[2] }}) - Quantity: {{ product[3] }} - Price: {{ product[4] }}
+                        <a href="{{ url_for('remove_product_route', product_id=product[0]) }}">Remove</a>
+                    </li>
                     {% endfor %}
-                </datalist>
-                <input type="number" name="quantity_sold" placeholder="Quantity Sold" required>
-                <input type="number" name="selling_price" placeholder="Selling Price" required>
-                <button type="submit">Record Sale</button>
-            </form>
-        </div>
+                </ul>
+            </div>
 
-        <div class="section">
-            <h2>Sales Records</h2>
-            <ul>
-                {% for sale in sales %}
-                <li>
-                    Product ID: {{ sale[1] }} - Date: {{ sale[2] }} - Time: {{ sale[3] }} - Quantity Sold: {{ sale[4] }} - Total Amount: {{ sale[5] }} - Profit: {{ sale[6] }}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+            <div id="record-sale" class="section">
+                <h2>Record Sale</h2>
+                <form method="POST" action="/record_sale">
+                    <input list="product_names" name="product_name" placeholder="Product Name" required>
+                    <datalist id="product_names">
+                        {% for product in products %}
+                        <option value="{{ product[1] }}">
+                        {% endfor %}
+                    </datalist>
+                    <input type="number" name="quantity_sold" placeholder="Quantity Sold" required>
+                    <input type="number" name="selling_price" placeholder="Selling Price" required>
+                    <button type="submit">Record Sale</button>
+                </form>
+            </div>
 
-        <div class="section">
-            <h2>Suppliers</h2>
-            <ul>
-                {% for supplier in suppliers %}
-                <li>
-                    {{ supplier[1] }} - Contact: {{ supplier[2] }} - Product: {{ supplier[3] }} - Quantity: {{ supplier[4] }} - Price: {{ supplier[5] }}
-                    <a href="{{ url_for('remove_supplier_route', supplier_id=supplier[0]) }}">Remove</a>
-                </li>
-                {% endfor %}
-            </ul>
+            <div id="sales-records" class="section">
+                <h2>Sales Records</h2>
+                <ul>
+                    {% for sale in sales %}
+                    <li>
+                        Product ID: {{ sale[1] }} - Date: {{ sale[2] }} - Time: {{ sale[3] }} - Quantity Sold: {{ sale[4] }} - Total Amount: {{ sale[5] }} - Profit: {{ sale[6] }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div id="suppliers" class="section">
+                <h2>Suppliers</h2>
+                <ul>
+                    {% for supplier in suppliers %}
+                    <li>
+                        {{ supplier[1] }} - Contact: {{ supplier[2] }} - Product: {{ supplier[3] }} - Quantity: {{ supplier[4] }} - Price: {{ supplier[5] }}
+                        <a href="{{ url_for('remove_supplier_route', supplier_id=supplier[0]) }}">Remove</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 </body>

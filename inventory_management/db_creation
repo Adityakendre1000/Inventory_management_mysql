@@ -1,0 +1,52 @@
+-- Create the database
+CREATE DATABASE inventory_db;
+
+-- Use the newly created database
+USE inventory_db;
+
+-- Create the products table
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    category VARCHAR(255),
+    quantity INT,
+    price DECIMAL(10, 2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create the suppliers table
+CREATE TABLE suppliers (
+    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_name VARCHAR(255) NOT NULL,
+    contact_details VARCHAR(255) NOT NULL,
+    product_name VARCHAR(255),
+    quantity INT,
+    price DECIMAL(10, 2)
+);
+
+-- Create the inventory_transactions table
+CREATE TABLE inventory_transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    transaction_date DATE,
+    transaction_type VARCHAR(255) NOT NULL,  -- Enforcing NOT NULL where applicable
+    quantity INT NOT NULL,                    -- Quantity should not be NULL
+    reason VARCHAR(255),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+        ON DELETE CASCADE  -- Optional: remove transactions if the associated product is deleted
+        ON UPDATE CASCADE   -- Optional: update product_id in transactions if product_id in products is updated
+);
+
+-- Create the sales table
+CREATE TABLE sales (
+    sale_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,  -- Ensure this data type matches the products table
+    sale_date DATE,
+    sale_time TIME,
+    quantity_sold INT,
+    total_amount DECIMAL(10, 2),
+    profit DECIMAL(10, 2),
+    FOREIGN KEY (product_id) REFERENCES products(product_id) 
+        ON DELETE CASCADE  -- Optional: delete related sales records if the product is deleted
+);

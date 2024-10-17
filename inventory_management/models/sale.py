@@ -1,7 +1,7 @@
 from db.database import execute_query
 from decimal import Decimal
 
-def record_sale(product_name, quantity_sold, selling_price):
+def record_sale(product_name, quantity_sold, selling_price, date, time):
     """Record a sale and update the product quantity."""
     product_query = "SELECT product_id, price, quantity FROM products WHERE product_name = %s"
     product = execute_query(product_query, (product_name,), fetch=True)

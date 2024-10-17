@@ -3,12 +3,57 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    display: flex;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #333333;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 1; /* Ensure the sidebar is on the upper layer */
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    color: white; /* Ensure the text color is white */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: black; /* Ensure the link color is white */
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    overflow-y: auto;
 }
 
 h1, h2 {
@@ -70,4 +115,27 @@ a:hover {
     padding: 20px;
     background: #e9ecef;
     border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td {
+    background-color: #fff;
 }

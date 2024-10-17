@@ -1,6 +1,6 @@
 from db.database import execute_query
 
-def add_product(product_name, category, quantity, price, supplier_name, contact_details):
+def add_product(product_name, category, quantity, price, supplier_name, contact_details, date, time):
     # Check if product already exists
     product_query = "SELECT product_id, quantity, price FROM products WHERE product_name = %s"
     product = execute_query(product_query, (product_name,), fetch=True)

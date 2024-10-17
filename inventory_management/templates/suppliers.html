@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("suppliersTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none";
+                td = tr[i].getElementsByTagName("td");
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="{{ url_for('add_product_page') }}">Add Product</a></li>
+                <li><a href="{{ url_for('record_sale_page') }}">Record Sale</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('sales_records_page') }}">Sales Records</a></li>
+                <li><a href="{{ url_for('suppliers_page') }}">Suppliers</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Suppliers</h1>
+            <div class="section">
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for suppliers..">
+                <table id="suppliersTable">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Contact</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for supplier in suppliers %}
+                        <tr>
+                            <td>{{ supplier[1] }}</td>
+                            <td>{{ supplier[2] }}</td>
+                            <td>{{ supplier[3] }}</td>
+                            <td>{{ supplier[4] }}</td>
+                            <td>{{ supplier[5] }}</td>
+                            <td><a href="{{ url_for('remove_supplier_route', supplier_id=supplier[0]) }}">Remove</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function addProductFields() {
+            var container = document.getElementById("productFieldsContainer");
+            var productFields = `
+                <div class="product-fields">
+                    <input type="text" name="product_name[]" placeholder="Product Name" required>
+                    <input type="text" name="category[]" placeholder="Category" required>
+                    <input type="number" name="quantity[]" placeholder="Quantity" required>
+                    <input type="number" name="price[]" placeholder="Price" required>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', productFields);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="{{ url_for('add_product_page') }}">Add Product</a></li>
+                <li><a href="{{ url_for('record_sale_page') }}">Record Sale</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('sales_records_page') }}">Sales Records</a></li>
+                <li><a href="{{ url_for('suppliers_page') }}">Suppliers</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Add Product</h1>
+            <div class="section">
+                <form method="POST" action="/add_product">
+                    <div id="productFieldsContainer">
+                        <div class="product-fields">
+                            <input type="text" name="product_name[]" placeholder="Product Name" required>
+                            <input type="text" name="category[]" placeholder="Category" required>
+                            <input type="number" name="quantity[]" placeholder="Quantity" required>
+                            <input type="number" name="price[]" placeholder="Price" required>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addProductFields()">Add Another Product</button>
+                    <h2>Supplier Details</h2>
+                    <input type="text" name="supplier_name" placeholder="Supplier Name" required>
+                    <input type="text" name="contact_details" placeholder="Contact Details" required>
+                    <button type="submit">Add Products</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
